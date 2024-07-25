@@ -1,0 +1,235 @@
+﻿<link href="~/css/Textallign.css" rel="stylesheet" />
+<link href="~/css/ModalCenterTextarea.css" rel="stylesheet" />
+<link href="~/css/datagrid.css" rel="stylesheet" />
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<script src="~/js/tm/TraineeEvaluations.js"></script>
+<!-- End Navbar -->
+      <div class="content">
+          <!--New Row-->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                    <!-- Modal -->
+<div class="modal fade" id="addTraineeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Add</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+     @* ADD MODAL WITH DROP DOWN AND FORIEGN KEYS*@
+      @*Added*@
+       <!-- Modal body -->
+
+     @*add dropdown*@
+
+      <div class="form-group">
+                                            <label for="TraineesId" style="display:none" class="col-form-label">Trainee ID:</label>
+                                            <input type="text" style="display:none" class="form-control" id="TraineesId">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-md-4 col-form-label">Trainee Name:</label>
+                                                <div class="dropdown col-md-4">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="traineedropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Select a Trainee
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="traineedropdownMenuButton" id="traineesDropdown-menu">
+                                                    </div>
+                                                </div>
+                                                <span style="display:hidden" class="col-md-6 "></span>
+                                            </div>
+
+                                        </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <input type="text" style="display:none" class="form-control" id="EvaluationId">
+          </div>
+          <div class="form-group">
+              <div class="row">
+                <label  class="col-md-4 col-form-label">Trainee Evaluation Name:</label>
+            <div class="dropdown col-md-4">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Select an item
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="traineeEvaluationsDropdown-menu">
+              </div>
+         </div>
+
+            <span  style="display:hidden" class="col-md-6 "></span>
+              </div>
+              </div>
+
+
+
+
+@*truncation script *@
+       
+
+
+        @*Insertion form*@
+
+                             <form id="addTraineeEvaluationForm">
+                            <div class="modal-body">
+                              <div class="form-group">
+                               
+                              </div>
+                              <div class="form-group">
+                                <label for="name" class="col-form-label" >Score:</label>
+                                <input type="text" class="form-control" id="score"  oninput="checkLength()" required>
+                              </div>
+                             @* <div class="form-group">
+                                <label for="date" class="col-form-label">Date:</label>
+                                <input type="date" class="form-control" id="date" required>
+                              </div>*@
+                              @*<div class="form-group">
+                                <label for="topic" class="col-form-label">Topic:</label>
+                                <input type="text" class="form-control" id="topic" required>
+                                
+                              </div>
+                              <div>
+                                  <label for="question" class="col-form-label">Question:</label>
+                               <textarea class="form-control" rows="5" id="question" required></textarea>
+
+                                  </div>*@
+
+                                  <div>
+                                  <label for="description" class="col-form-label">Remarks:</label>
+                                <input type="text" class="form-control" id="remarks" required>
+                                <button type="submit" id="submit-button" class="hide" style="display:none"></button>
+                                  </div>
+                              
+                            </div>
+                        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary cl" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary  saveButton" >Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+@*EDIT MODAL  WITH DROP DOWN AND FORIEGN KEYS*@
+<div class="card">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit Record</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+       @*Trainee dropdown*@
+      <div class="modal-body">
+          <div class="form-group">
+                                            <input type="text" style="display:none" class="form-control" id="EditTraineeId">
+                                       </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-md-4 col-form-label">Trainee Name:</label>
+                                                <div class="dropdown col-md-4">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="EditdropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Select a Trainee
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="EditdropdownMenuButton1" id="editTraineesDropdown-menu">
+                                                    </div>
+                                                </div>
+                                                <span style="display:hidden" class="col-md-6 "></span>
+                                            </div>
+                                            <!--Required Field-->
+                                            <span id="requiredBatchId" style="display: none; color: red;">* Required</span>
+                                        </div>
+                                        <!-- Evaluation Dropdown-->
+                                        <div class="form-group">
+                                            <label for="evaluationId" style="display:none" class="col-form-label">Evaluation ID:</label>
+                                            <input type="text" style="display:none" class="form-control" id="editEvaluationId">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-md-4 col-form-label">Evaluation Name:</label>
+                                                <div class="dropdown col-md-4">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="EditdropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Select an item
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="EditdropdownMenuButton" id="editEvaluationsDropdown-menu">
+                                                    </div>
+                                                </div>
+                                                <span style="display:hidden" class="col-md-6 "></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <!--Trainee id Hidden-->
+                                                <input type="text" id="editTraineeEvaluationId" style="display:none;" />
+                                                @*<label for="EdittraineeEvaluationName" class="col-form-label">TraineeEvaluation Name:</label>
+                                                <input type="text" class="form-control required" id="EdittraineeEvalauationName" required>*@
+                                                <!--Required Field-->
+                                                @*<span id="requiredLabel" style="display: none; color: red;">*Trainee Name Required</span>*@
+                                            </div>
+                                            <form id="editTraineeEvaluationForm">
+                                            <div class="form-group">
+                                                <label for="editScore" class="col-form-label">Score:</label>
+                                                <input type="text" class="form-control" id="editScore" required>
+                                                <!--Required Field-->
+                                                <span id="locationlabel" style="display:none; color: red;">* Required</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="editRemarks" class="col-form-label">Remarks:</label>
+                                                <input type="text" class="form-control" id="editRemarks" required>
+                                                <button type="submit" id="editsubmit-button" class="hide" style="display:none"></button>
+                                                <!--Required Field-->
+                                                <span id="emaillabel" style="display: none; color: red;">* Required</span>
+                                            </div></form>
+                                           @* <div class="form-group">
+                                                <label for="Editphone" class="col-form-label">Phone:</label>
+                                                <input type="tel" class="form-control" id="Editphone" required>
+                                                <!--Required Field-->
+                                                <span id="phonelabel" style="display: none; color: red;">* Required</span>
+                                            </div>*@</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary cl" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary editTraineeEvaluationButton">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+              
+                  <div class="card-header">
+                    <h5 class="title">Trainee Evaluations  <button type="button"  class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTraineeModal">Add</button></h5>
+                  </div>
+                  
+                  <!-- Search form -->
+                      <div class="col-md-12" style="display: flex;">
+                            <input  class="form-control col-md-3 input-sm" type="text"  id="searchBox" placeholder="Search" aria-label="Search">
+                            @*<button style="float:right;" type="button"  class="btn btn-primary btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg></button>*@   
+                      </div>
+                      <br>  
+                </div>
+              </div>
+           <div class="col-md-12">
+            <div class="card ">
+              <div class="card-header">
+                <h4 class="card-title"> Trainee Evaluations</h4>
+              </div>
+
+              @*Added*@
+              @*to show the evaluation details in devextreme datagrid*@
+              <div class="card-body">
+                <div id="card-container"></div>
+              </div>
+
+
+
+            </div>
+          </div>
+       </div>
+     </div>
+     </div>

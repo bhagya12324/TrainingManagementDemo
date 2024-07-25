@@ -1,0 +1,189 @@
+﻿
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="~/js/tm/Faculties.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+            <div class="content">
+                <!--New Row-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+
+                            <!--modal-->
+
+                            <div class="modal fade" id="addFacultyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Add Faculties</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="addFacultyForm">
+                                                <div class="modal-body">
+
+
+                                                    <div class="form-group">
+                                                        <label for="facultyName" class="col-form-label">Faculty Name:</label>
+                                                        <input type="text" class="form-control" id="facultyName" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="remarks" class="col-form-label">Remarks:</label>
+                                                        <input type="text" class="form-control" id="remarks" required>
+
+                                                        <button type="submit" id="submit-button" class="hide" style="display:none"></button>
+
+                                                    </div>
+
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn cl btn-secondary" data-dismiss="modal">Close</button>
+                                            <input type="button" class="btn btn-primary" onclick="AddFaculty()" value="Add Faculty" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!--modal end-->
+                            <!--update modal-->
+                            <div class="modal fade" id="editFacultyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Edit Faculties</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="addFacultyForm">
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        @*<label for="facultyName" class="col-form-label">Faculty Id:</label>*@
+                                                        <input type="hidden" class="form-control" id="updateFacultyId" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="facultyName" class="col-form-label">Faculty Name:</label>
+                                                        <input type="text" class="form-control" id="updateFacultyName" required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="remarks" class="col-form-label">Remarks:</label>
+                                                        <input type="text" class="form-control" id="updateRemarks" required>
+
+                                                        <button type="submit" id="submit-button" class="hide" style="display:none"></button>
+
+                                                    </div>
+
+
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn cl btn-secondary" data-dismiss="modal">Close</button>
+                                            <input type="button" class="btn btn-primary" onclick="UpdateFaculty()" value="Save Changes" />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--Begining of assign subjects modal Form-->
+                            <div class="modal fade" id="assignSubjectsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Assign Subjects</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+
+
+                                        @*Added*@
+                                        <!-- Modal body -->
+                                        @*  dropdown*@
+                                        <div class="modal-body">
+
+                                            <input type="hidden" id="facultyId" />
+                                            <input type="hidden" id="subjectId" />
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-md-4 col-form-label">Faculty Name:</label>
+                                                    <div class="dropdown col-md-4">
+                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Select a faculty
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="facultiesDropdown-menu">
+                                                        </div>
+                                                    </div>
+                                                    <span style="display:hidden" class="col-md-6 "></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="col-md-4 col-form-label">Subject Name:</label>
+                                                    <div class="dropdown col-md-4">
+                                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            Select a subject
+                                                        </button>
+                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2" id="subjectsDropdown-menu">
+                                                        </div>
+                                                    </div>
+                                                    <span style="display:hidden" class="col-md-6 "></span>
+                                                </div>
+                                            </div>
+
+                                            <div>
+                                                <label for="question" class="col-form-label">Remarks : </label>
+                                                <input type="text" class="form-control" id="assignSubjectRemark" required>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn cl btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary" onclick="AssignSubject()">Assign Subject</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card-header">
+                                <h5 class="title">
+                                    Faculties
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addFacultyModal">Add Faculty</button>
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#assignSubjectsModal">Assign Subjects</button>
+
+                                </h5>
+                            </div>
+
+                            <!-- Search form -->
+                            <div class="col-md-12" style="display: flex;">
+                                <input class="form-control col-md-3 input-sm" type="text" id="searchBox" placeholder="Search" aria-label="Search">
+                                <button style="float:right;" type="button" class="btn btn-primary btn-sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                                    </svg>
+                                </button>
+
+                            </div>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                <div id="card-container">
+                </div>
+
+            </div>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                

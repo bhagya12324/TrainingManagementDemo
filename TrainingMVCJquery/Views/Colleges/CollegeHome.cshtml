@@ -1,0 +1,153 @@
+﻿<link href="~/css/Textallign.css" rel="stylesheet" />
+<link href="~/css/ModalCenterTextarea.css" rel="stylesheet" />
+<script src="~/js/tm/Colleges.js"></script>
+<link href="~/css/datagrid.css" rel="stylesheet" />
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<div class="content">
+    <!--New Row-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <!-- Modal -->
+                <div class="modal fade" id="addTraineeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add College</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            @*Truncation script*@
+                            <script>
+                                  function checkLength() {
+                                   var name = document.getElementById("name");
+                                   var editname=document.getElementById("editname");
+                                    if (name.value.length > 50 || editname.value.length > 50) {
+                                    swal({
+                                    title: "WARNING",
+                                    text: "College Name Should not exceed the limit",
+                                    icon: "warning",
+                                    button: {
+                                        text: "OK",
+                                        className: "btn-primary",
+                                    },
+                                });
+                                name.value = name.value.slice(0, 50); // Truncate the input to 40 characters
+                                }
+                                }
+                            </script>
+
+
+                            @*Insert college form*@
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <form id="addCollegeForm">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name" class="col-form-label">College Name:</label>
+                                            <input type="text" class="form-control" id="name" oninput="checkLength()" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="location" class="col-form-label">Location:</label>
+                                            <input type="text" class="form-control" id="location" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="remarks" class="col-form-label">Remarks:</label>
+                                            <input type="text" class="form-control" id="remarks" required>
+                                            <button type="submit" id="submit-button" class="hide" style="display:none"></button>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn cl btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="AddCollege()">Add College</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-header">
+                    <h5 class="title">Colleges  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTraineeModal">Add</button></h5>
+                </div>
+
+                <!-- Modal -->
+                <!-- Search form -->
+                <div class="col-md-12" style="display: flex;">
+                    <input class="form-control col-md-3 input-sm" type="text" id="searchBox" placeholder="Search" aria-label="Search">
+                    @*<button style="float:right;" type="button" class="btn btn-primary btn-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                        </svg>
+                    </button>*@
+                </div>
+                <br>
+            </div>
+        </div>
+
+        @*Edit*@
+
+
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Add College</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editCollegeForm">
+                            <input type="hidden" id="editCollegeId" />
+                            <div class="modal-body">
+                                <div class="form-group">
+                                </div>
+                                <div class="form-group">
+                                    <label for="editname" class="col-form-label">College Name:</label>
+                                    <input type="text" class="form-control" id="editname" oninput="checkLength()" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editlocation" class="col-form-label">Location:</label>
+                                    <input type="text" class="form-control" id="editlocation" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="editremarks" class="col-form-label">Remarks:</label>
+                                    <input type="text" class="form-control" id="editremarks" required>
+                                    <button type="submit" id="editsubmit-button" class="hide" style="display:none"></button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn cl btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="editCollege()">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card ">
+                <div class="card-header">
+                    <h4 class="card-title"> Colleges</h4>
+                </div>
+
+
+
+
+                @*To show the table in devextreme grid*@
+                <div class="card-body">
+                    <div id="card-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

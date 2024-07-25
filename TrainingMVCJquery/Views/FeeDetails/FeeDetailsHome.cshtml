@@ -1,0 +1,209 @@
+﻿<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+
+
+
+<script src="~/js/tm/FeeDetails.js"></script>
+<link href="~/css/batch.css" rel="stylesheet" />
+
+<style>
+    .modal-dialog {
+        top: -15%;
+    }
+</style>
+
+
+<script>
+    function checkLength()
+    {
+        var remarksField = document.getElementById("remarks");
+        if (remarksField.value.length > 20)
+        {
+            swal({
+                                        title: "WARNING",
+                                        text: "Remarks Should not exceed the limit",
+                                        icon: "warning",
+                                        button: {
+                                            text: "OK",
+                                            className: "btn-primary",
+                                        },
+                                    });
+            remarksField.value = remarksField.value.slice(0, 20); // Truncate the input to 20 characters
+        }
+       
+    }
+</script>
+<div class="content">
+    <!--New Row-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <!-- Modal -->
+                <div class="modal fade" id="addFeesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add Fees</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+
+                            @*Added*@
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <form id="addFeeForm" class="registration-form" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="batchId" style="display:none" class="col-form-label">Batch ID:</label>
+                                            <input type="text" style="display:none" class="form-control" id="batchId">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-md-4 col-form-label">Batch Name:</label>
+                                                <div class="dropdown col-md-4">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Select Batch
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="fees-menu">
+                                                    </div>
+                                                </div>
+                                                <span style="display:hidden" class="col-md-6 "></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="date" class="col-form-label">Date:</label>
+                                            <input type="date" class="form-control" id="date" name="date" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="amount" class="col-form-label">Amount:</label>
+                                            <input type="text" class="form-control" id="amount" name="amount" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="remarks" class="col-form-label">Remarks:</label>
+                                            <input type="text" class="form-control" id="remarks" oninput="checkLength()" required>
+
+                                            <button type="submit" id="submit-button" class="hide" style="display:none"></button>
+                                        </div>
+
+                                    </div>
+
+
+
+                                </form>
+
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn cl btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="AddFeeDetails()">Add</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- edit modal-->
+
+            <div class="card card-chart">
+                <div class="modal fade" id="editFeeModal" tabindex="-1" role="dialog" aria-labelledby="editFeeLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editFeeLabel">Update Fee Details</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="updateFeeForm" class="registration-form" method="post">
+
+                                  
+
+                                    <input type="text" style="display:none"class="form-control" id="editfeesId">
+                                    <input type="text" style="display:none" class="form-control" id="editbatchId">
+
+
+                                    <div class="form-group">
+                                        <label for="editdate" class="col-form-label">Date:</label>
+                                        <input type="date" class="form-control" id="editdate" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="editamount" class="col-form-label">Amount:</label>
+                                        <input type="text" class="form-control" id="editamount" name="amount" required>
+                                    </div>
+
+
+                                    
+
+
+                                    <div class="form-group">
+                                        <label for="editremarks" class="col-form-label">Remarks:</label>
+                                        <input type="text" class="form-control" id="editremarks" oninput="checkLength()" required>
+                                        <button type="submit" id="sub" class="hide" style="display:none"></button>
+                                    </div>
+
+
+
+
+                                </form>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary cl" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary editsaveButton" onclick="UpdateFeeDetails()">Save Changes</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- end edit modal -->
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h5 class="title">Fees <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addFeesModal">Add</button></h5>
+                </div>
+                 <!-- Search form -->
+                 <div class="col-md-12" style="display: flex;">
+                    <input  class="form-control col-md-3 input-sm" type="text" id="searchBox" placeholder="Search" aria-label="Search">
+                   
+                    </div>
+               
+                <br>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card ">
+                <div class="card-header">
+                    <h4 class="card-title"> Fees</h4>
+                </div>
+
+                @*Added*@
+                <div class="card-body">
+                    <div id="fee-container"></div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

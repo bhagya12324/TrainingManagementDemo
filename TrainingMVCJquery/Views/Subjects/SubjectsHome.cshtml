@@ -1,0 +1,363 @@
+﻿@{
+  Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="~/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="~/img/favicon.png">
+  <title>
+Subjects
+  </title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
+  <!-- Nucleo Icons -->
+  <link href="~/css/nucleo-icons.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="~/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="~/css/demo.css" rel="stylesheet" />
+  <link href="~/css/datagrid.css" rel="stylesheet" />
+  <script src="~/js/tm/Subjects.js?rndstr=<%= getRandomStr() %>"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.1.4/css/dx.common.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/21.1.4/css/dx.light.css" />
+
+  <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://cdn3.devexpress.com/jslib/21.1.4/js/dx.all.js"></script>
+</head>
+
+<body class="white-content">
+  <div class="wrapper">
+    <div class="sidebar">
+      <!--
+        Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red"
+        -->
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li>
+            <a href="@Url.Action("Index", "Home")">
+              <i class="tim-icons icon-chart-pie-36"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li >
+            <a href="@Url.Action("HomePage", "Faculties")">
+              <i class="tim-icons icon-badge"></i>
+              <p>Faculties</p>
+            </a>
+          </li>
+          <li >
+            <a href="@Url.Action("TraineesHomePage", "Trainees")">
+              <i class="tim-icons icon-single-02"></i>
+              <p>Trainees</p>
+            </a>
+          </li>
+          <li>
+            <a href="@Url.Action("BatchesHome", "Batches")">
+                <i ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                 <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"/>
+                </svg></i>
+              <p>Batches</p></a>
+          </li>
+         <li >
+            <a href="@Url.Action("CollegeHome", "Colleges")">
+              <i ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building" viewBox="0 0 16 16">
+                 <path d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z"/>
+                 <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V1Zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3V1Z"/>
+                 </svg></i>
+              <p>Colleges</p>
+            </a>
+          </li>
+          <li>
+            <a href="./tables.html">
+              <i class="tim-icons icon-puzzle-10"></i>
+              <p>Table List</p>
+            </a>
+          </li>
+          <li>
+            <a href="./typography.html">
+              <i class="tim-icons icon-align-center"></i>
+              <p>Typography</p>
+            </a>
+          </li>
+          <li class="">
+            <a href="@Url.Action("BatchDetailsHome", "BatchDetails")">
+              <i class="tim-icons icon-calendar-60"></i>
+              <p>Daily Task</p>
+            </a>
+          </li>
+          <li class="active">
+            <a href="@Url.Action("SubjectsHome", "Subjects")">
+              <i class="tim-icons icon-book-bookmark"></i>
+              <p>Subjects</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <!--Top Form-->
+            <div class="card card-chart">
+              <div class="card-header ">
+                <div class="row">
+                  <div class="col-sm-6 text-left">
+                    <h4 class="card-title">Subjects <button type="button"  class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addSubjectsModal">Add Subjects</button></h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--Datagrid View-->
+           <div class="col-md-12">
+            <div class="card ">
+              <div class="card-header">
+                <h4 class="card-title"> Batch Details</h4>
+              </div>
+              <div class="card-body">
+                <div class="batchDetailsGrid "></div>
+              </div>
+            </div>
+          </div>
+                <!--Begining of add modal Form-->
+                <div class="card card-chart">
+                  <div class="modal fade" id="addSubjectsModal" tabindex="-1" role="dialog" aria-labelledby="dailyTaskModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="subjectsModalLabel">Add New Subjects</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form id="addForm">
+                            <div class="form-group">
+                              <label for="subjectname">Subject Name</label>
+                              <input type="text" class="form-control" id="subjectname" placeholder="Enter Subject Name" required>
+                            </div>
+
+                             <div class="form-group">
+                              <label for="subjectname">Remarks</label>
+                              <input type="text" class="form-control" id="remarks" placeholder="Enter Remarks" required>
+                            </div>
+                             <input type="submit" id="addSubmitButton" style="display:none"/>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary cl" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary saveButton">Save Details</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             <!--End of Form-->
+             <!--Beginning of Edit Form-->
+                <div class="card card-chart">
+                  <div class="modal fade" id="editSubjectsModal" tabindex="-1" role="dialog" aria-labelledby="editSubjectsModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="subjectsModalLabel">Subjects Edit Form</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form id="editForm">
+                           <input type="text" class="form-control" id="editsubjectid" style="display:none">
+                           <div class="form-group">
+                              <label for="subjectname">Subject Name</label>
+                              <input type="text" class="form-control" id="editsubjectname" placeholder="Enter Subject Name" required>
+                            </div>
+
+                             <div class="form-group">
+                              <label for="subjectname">Remarks</label>
+                              <input type="text" class="form-control" id="editremarks" placeholder="Enter Remarks" required>
+                            </div>
+                            <input type="submit" id="editSubmitButton" style="display:none"/>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary cl" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary editsaveButton">Update Details</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             <!--End-->
+          </div>
+           
+        </div>
+      </div>
+      <footer class="footer">
+        <div class="container-fluid">
+          <ul class="nav">
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="nav-link">
+                Training Management System
+              </a>
+            </li>
+          </ul>
+          <div class="copyright">
+            © GEMINI Softwares
+            <script>
+              document.write(new Date().getFullYear())
+            </script> 
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <div class="fixed-plugin">
+    <div class="dropdown show-dropdown">
+      <a href="#" data-toggle="dropdown">
+        <i class="fa fa-cog fa-2x"> </i>
+      </a>
+      <ul class="dropdown-menu">
+        <li class="header-title"> Sidebar Background</li>
+        <li class="adjustments-line">
+          <a href="javascript:void(0)" class="switch-trigger background-color">
+            <div class="badge-colors text-center">
+              <span class="badge filter badge-primary active" data-color="primary"></span>
+              <span class="badge filter badge-info" data-color="blue"></span>
+              <span class="badge filter badge-success" data-color="green"></span>
+            </div>
+            <div class="clearfix"></div>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  @*<script src="~/js/jquery.min.js"></script>*@
+  <script src="~/js/popper.min.js"></script>
+  <script src="~/js/bootstrap.mi.js"></script>
+  <script src="~/js/perfect-scrollbar.jquery.min.js"></script>
+  <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="~/js/black-dashboard.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
+  <script src="~/js/demo.js"></script>
+  <script>
+    $(document).ready(function() {
+      $().ready(function() {
+        $sidebar = $('.sidebar');
+        $navbar = $('.navbar');
+        $main_panel = $('.main-panel');
+
+        $full_page = $('.full-page');
+
+        $sidebar_responsive = $('body > .navbar-collapse');
+        sidebar_mini_active = true;
+        white_color = false;
+
+        window_width = $(window).width();
+
+        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+
+
+        $('.fixed-plugin a').click(function(event) {
+          if ($(this).hasClass('switch-trigger')) {
+            if (event.stopPropagation) {
+              event.stopPropagation();
+            } else if (window.event) {
+              window.event.cancelBubble = true;
+            }
+          }
+        });
+
+        $('.fixed-plugin .background-color span').click(function() {
+          $(this).siblings().removeClass('active');
+          $(this).addClass('active');
+
+          var new_color = $(this).data('color');
+
+          if ($sidebar.length != 0) {
+            $sidebar.attr('data', new_color);
+          }
+
+          if ($main_panel.length != 0) {
+            $main_panel.attr('data', new_color);
+          }
+
+          if ($full_page.length != 0) {
+            $full_page.attr('filter-color', new_color);
+          }
+
+          if ($sidebar_responsive.length != 0) {
+            $sidebar_responsive.attr('data', new_color);
+          }
+        });
+
+        $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
+          var $btn = $(this);
+
+          if (sidebar_mini_active == true) {
+            $('body').removeClass('sidebar-mini');
+            sidebar_mini_active = false;
+            blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
+          } else {
+            $('body').addClass('sidebar-mini');
+            sidebar_mini_active = true;
+            blackDashboard.showSidebarMessage('Sidebar mini activated...');
+          }
+
+          // we simulate the window Resize so the charts will get updated in realtime.
+          var simulateWindowResize = setInterval(function() {
+            window.dispatchEvent(new Event('resize'));
+          }, 180);
+
+          // we stop the simulation of Window Resize after the animations are completed
+          setTimeout(function() {
+            clearInterval(simulateWindowResize);
+          }, 1000);
+        });
+
+        $('.switch-change-color input').on("switchChange.bootstrapSwitch", function() {
+          var $btn = $(this);
+
+          if (white_color == true) {
+
+            $('body').addClass('change-background');
+            setTimeout(function() {
+              $('body').removeClass('change-background');
+              $('body').removeClass('white-content');
+            }, 900);
+            white_color = false;
+          } else {
+
+            $('body').addClass('change-background');
+            setTimeout(function() {
+              $('body').removeClass('change-background');
+              $('body').addClass('white-content');
+            }, 900);
+
+            white_color = true;
+          }
+
+
+        });
+
+        $('.light-badge').click(function() {
+          $('body').addClass('white-content');
+        });
+
+        $('.dark-badge').click(function() {
+          $('body').removeClass('white-content');
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

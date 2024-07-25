@@ -1,0 +1,236 @@
+﻿<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+
+
+
+<script src="~/js/tm/Assignment.js"></script>
+<link href="~/css/batch.css" rel="stylesheet" />
+
+<style>
+    .modal-dialog {
+        top: -20%;
+    }
+</style>
+
+
+<script>
+    function checkLength()
+    {
+        var remarksField = document.getElementById("remarks");
+        if (remarksField.value.length > 10)
+        {
+            swal({
+                                        title: "WARNING",
+                                        text: "Remarks Should not exceed the limit",
+                                        icon: "warning",
+                                        button: {
+                                            text: "OK",
+                                            className: "btn-primary",
+                                        },
+                                    });
+            remarksField.value = remarksField.value.slice(0, 10); // Truncate the input to 100 characters
+        }
+        var assignmentfield=document.getElementById("assignment");
+        if(assignmentfield.value.length>10)
+        {
+             swal({
+                                        title: "WARNING",
+                                        text: "Assignment Should not exceed the limit",
+                                        icon: "warning",
+                                        button: {
+                                            text: "OK",
+                                            className: "btn-primary",
+                                        },
+                                    });
+            assignmentfield.value = assignmentfield.value.slice(0, 10); // Truncate the input to 100 characters
+
+        }
+    }
+</script>
+<div class="content">
+    <!--New Row-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <!-- Modal -->
+                <div class="modal fade" id="addAssignmentModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add Assignments</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+
+                            @*Added*@
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <form id="addAssignmentForm" class="registration-form" method="post">
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="traineeId" style="display:none" class="col-form-label">Trainee ID:</label>
+                                            <input type="text" style="display:none" class="form-control" id="traineeId">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-md-4 col-form-label">Trainee Name:</label>
+                                                <div class="dropdown col-md-4">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Select Trainee
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="assignment-menu">
+                                                    </div>
+                                                </div>
+                                                <span style="display:hidden" class="col-md-6 "></span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="assignment" class="col-form-label">Assignment:</label>
+                                            <input type="text" class="form-control" id="assignment" name="assignment" oninput="checkLength()" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="score" class="col-form-label">Score:</label>
+                                            <input type="number" class="form-control" id="score" name="score" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="status">Status:</label>
+
+                                            <div>
+                                                <select id="status" name="status" required>
+                                                    <option value="Assigned" selected>Assigned</option>
+                                                    <option value="Completed">Completed</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label for="remarks" class="col-form-label">Remarks:</label>
+                                            <input type="text" class="form-control" id="remarks" oninput="checkLength()" required>
+                                            <button type="submit" id="submit-button" class="hide" style="display:none"></button>
+                                        </div>
+
+                                    </div>
+
+
+
+                                </form>
+
+                            </div>
+
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn cl btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="AddAssignment()">Add</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- edit modal-->
+
+            <div class="card card-chart">
+                <div class="modal fade" id="editAssignmentModal" tabindex="-1" role="dialog" aria-labelledby="editAssignmentLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editAssignmentLabel">Update Assignment</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="updateAssignmentForm" class="registration-form" method="post">
+                                    <input type="text" style="display:none" class="form-control" id="editassignmentId">
+
+                                    <div class="form-group">
+                                        <label for="editassignment" class="col-form-label">Assignment:</label>
+                                        <input type="text" class="form-control" id="editassignment" oninput="checkLength()" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="editscore" class="col-form-label">Score:</label>
+                                        <input type="text" class="form-control" id="editscore" name="score" required>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="editstatus">Status:</label>
+                                        <div>
+                                            <select id="editstatus" name="editstatus" required>
+                                                <option value="Assigned" selected>Assigned</option>
+                                                <option value="Completed">Completed</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="editremarks" class="col-form-label">Remarks:</label>
+                                        <input type="text" class="form-control" id="editremarks" oninput="checkLength()" required>
+                                        <button type="submit" id="sub" class="hide" style="display:none"></button>
+                                    </div>
+
+
+
+
+                                </form>
+
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary cl" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary editsaveButton" onclick="UpdateAssignment()">Save Changes</button>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- end edit modal -->
+            <div class="card">
+
+                <div class="card-header">
+
+                    <h5 class="title">Assignment  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addAssignmentModal">Add</button></h5>
+                </div>
+                <!-- Search form -->
+                 <div class="col-md-12" style="display: flex;">
+                    <input  class="form-control col-md-3 input-sm" type="text" id="searchBox" placeholder="Search" aria-label="Search">
+                   
+                    </div>
+                <br>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card ">
+                <div class="card-header">
+                    <h4 class="card-title"> Assignments</h4>
+                </div>
+
+                @*Added*@
+                <div class="card-body">
+                    <div id="assignment-container"></div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

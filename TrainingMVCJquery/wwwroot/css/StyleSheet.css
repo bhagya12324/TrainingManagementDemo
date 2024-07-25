@@ -1,0 +1,32 @@
+﻿#login-progress-indicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 8px solid #ccc;
+    border-top-color: #007bff;
+    animation: spin 1s ease-in-out infinite;
+    visibility: hidden;
+}
+
+    #login-progress-indicator.in-progress {
+        visibility: visible;
+    }
+
+#main.in-progress {
+    visibility: hidden;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+

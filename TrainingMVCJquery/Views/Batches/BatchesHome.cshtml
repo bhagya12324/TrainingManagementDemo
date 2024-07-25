@@ -1,0 +1,417 @@
+﻿<!-- sweetalert-->
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<!-- sweetalert end-->
+<script src="~/js/tm/Batches.js"></script>
+
+
+
+
+<link href="~/css/datagrid.css" rel="stylesheet" />
+
+<link href="~/css/batch.css" rel="stylesheet" />
+
+
+
+<script>
+    GetBatches();
+</script>
+
+
+<style>
+
+    .modal-dialog {
+        top: -25%;
+    }
+
+    .form-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .my-custom-class {
+        padding: 10px;
+    }
+
+    .form-row .label-colon {
+        margin-right: 0.5rem;
+    }
+
+    .dx-datagrid .details-link {
+        color: #3F85C1 !important; /* set the text color to blue */
+        text-decoration: underline !important; /* add an underline */
+        cursor: pointer; /* set the cursor to pointer on hover */
+    }
+
+    .details-link:hover {
+        color: red; /* change the text color to red on hover */
+    }
+
+</style>
+
+
+<!-- validation for start and end dates for update form-->
+
+<script>
+        document.addEventListener('DOMContentLoaded', function()
+        {
+        const startDate = document.getElementById('editstartdate');
+        const endDate = document.getElementById('editenddate');
+        console.log("edit date");
+        endDate.addEventListener('input', function()
+        {
+      // Parse the start and end date values
+        const startDateValue = new Date(startDate.value);
+        const endDateValue = new Date(endDate.value);
+
+        // Compare the start and end dates
+        if (endDateValue <= startDateValue)
+        {
+            endDate.setCustomValidity('End date must be greater than start date.');
+        }
+        else
+        {
+            endDate.setCustomValidity('');
+        }
+    });
+
+        // Clear the custom validity when the start date changes
+        startDate.addEventListener('input', function()
+        {
+            endDate.setCustomValidity('');
+    });
+
+
+
+    // validation for start and end dates for insert form
+
+    const addstartDate = document.getElementById('startdate');
+    const addendDate = document.getElementById('enddate');
+
+     addendDate.addEventListener('input', function() {
+      // Parse the start and end date values
+      const addstartDateValue = new Date(addstartDate.value);
+      const addendDateValue = new Date(addendDate.value);
+
+      // Compare the start and end dates
+      if (addendDateValue <= addstartDateValue)
+      {
+        addendDate.setCustomValidity('End date must be greater than start date.');
+      } else
+      {
+        addendDate.setCustomValidity('');
+      }
+     });
+        addstartDate.addEventListener('input', function() {
+        addendDate.setCustomValidity('');
+       });
+
+     const addtentativeendDate=document.getElementById('tentativeenddate');
+     addtentativeendDate.addEventListener('input', function() {
+      // Parse the start and end date values
+      const addstartDateValue = new Date(addstartDate.value);
+      const addtentativeenddateValue = new Date(addtentativeendDate.value);
+
+      // Compare the start and end dates
+      if (addtentativeenddateValue <= addstartDateValue)
+      {
+        addtentativeendDate.setCustomValidity('Tentative End date must be greater than start date.');
+      } else
+      {
+        addtentativeendDate.setCustomValidity('');
+      }
+      addstartDate.addEventListener('input', function() {
+      addtentativeendDate.setCustomValidity('');
+       });
+    });
+
+
+
+
+    // Clear the custom validity when the start date changes
+
+    });
+
+
+    // checking binary truncation error
+
+    function checkLength()
+    {
+        var name = document.getElementById("name");
+        var editname = document.getElementById("editname");
+        if (name.value.length > 15 || editname.value.length > 15)
+        {
+            swal({
+                                        title: "WARNING",
+                                        text: "Batch Name Should not exceed the limit",
+                                        icon: "warning",
+                                        button:
+                                        {
+                                            text: "OK",
+                                            className: "btn-primary",
+                                        },
+             });
+            name.value = name.value.slice(0, 15);
+            editname.value = editname.value.slice(0, 15); // Truncate the input to 15 characters
+        }
+         var details = document.getElementById("details");
+         var editdetails = document.getElementById("editdetails");
+        if (details.value.length > 20 || editdetails.value.length > 20)
+        {
+            swal({
+                                        title: "WARNING",
+                                        text: "Details Should not exceed the limit",
+                                        icon: "warning",
+                                        button:
+                                        {
+                                            text: "OK",
+                                            className: "btn-primary",
+                                        },
+             });
+            details.value = details.value.slice(0, 20);
+            editdetails.value = editdetails.value.slice(0, 20); // Truncate the input to 20 characters
+        }
+         var remarks = document.getElementById("remarks");
+         var editremarks = document.getElementById("editremarks");
+        if (remarks.value.length > 20 || editremarks.value.length > 20)
+        {
+            swal({
+                                        title: "WARNING",
+                                        text: "Details Should not exceed the limit",
+                                        icon: "warning",
+                                        button:
+                                        {
+                                            text: "OK",
+                                            className: "btn-primary",
+                                        },
+             });
+            remarks.value = remarks.value.slice(0, 20);
+            editremarks.value = editremarks.value.slice(0, 20);// Truncate the input to 20 characters
+        }
+
+    }
+</script>
+<div class="content">
+    <!--New Row-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="title">Batches <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addBatchModal">Add</button></h5>
+
+                </div>
+
+                <div class="modal fade" id="addBatchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog model-dialog-center" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add New Batch</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+
+                            </div>
+
+
+                            <div class="modal-body">
+
+                                <form id="batch-form" class="registration-form">
+                                    <label for="name">Batch Name:</label>
+                                    <input type="text" id="name" name="name" oninput="checkLength()" required>
+
+                                    <label for="startdate">Start Date:</label>
+                                    <input type="date" id="startdate" name="startdate" required>
+
+
+                                    <label for="tentativeenddate">Tentative End Date:</label>
+                                    <input type="date" id="tentativeenddate" name="tentativeenddate" required>
+
+
+                                    <label for="enddate">End Date:</label>
+                                    <input type="date" id="enddate" name="enddate" required>
+
+                                    <label for="fees">Fees:</label>
+                                    <input type="number" id="fees" name="fees" required>
+
+                                    <label for="feespaid">Fees Paid:</label>
+                                    <input type="number" id="feespaid" name="feespaid" required>
+
+                                    <label for="duration">Duration:</label>
+                                    <input type="number" id="duration" name="duration" required>
+
+                                    <label for="hourstaken">Hours Taken:</label>
+                                    <input type="number" id="hourstaken" name="hourstaken" required>
+
+
+                                    <label for="status">Status:</label>
+
+                                    <select id="status" name="status" required>
+                                        <option value="Not Started" selected>Not Started</option>
+                                        <option value="Ongoing">Ongoing</option>
+                                        <option value="Completed">Completed</option>
+                                    </select>
+
+
+                                    <label for="details">Details:</label>
+                                    <input type="text" id="details" name="details" oninput="checkLength()" required>
+
+
+                                    <label for="remarks">Remarks:</label>
+                                    <input type="text" id="remarks" name="remarks" oninput="checkLength()" required>
+
+                                    <button type="submit" id="submit-button" class="hide" style="display:none"></button>
+
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn cl btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="button" class="btn btn-primary" onclick="AddBatch()" value="ADD" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <!-- Search form -->
+                <div class="col-md-12" style="display: flex;">
+                    <input class="form-control col-md-3 input-sm" id="searchBox" type="text" placeholder="Search" aria-label="Search">
+                    @*        <button style="float:right;" type="button"  class="btn btn-primary btn-sm"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                        </svg></button>*@
+
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- edit modal-->
+
+    <div class="card card-chart">
+        <div class="modal fade" id="editBatchModal" tabindex="-1" role="dialog" aria-labelledby="editBatchLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editBatchLabel">Update Batch</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form id="updateBatchForm" method="post">
+
+                            <input type="text" style="display:none" class="form-control" id="editBatchId">
+
+                            <div class="form-group">
+                                <label for="editname" class="col-form-label">Batch Name:</label>
+                                <input type="text" class="form-control" id="editname" oninput="checkLength()" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="editstartdate">Start Date:</label>
+                                <input type="date" class="form-control" id="editstartdate" name="editstartdate" required>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="edittentativeenddate">Tentative End Date:</label>
+                                <input type="date" class="form-control" id="edittentativeenddate" name="edittentativeenddate" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="editenddate">End Date:</label>
+                                <input type="date" class="form-control" id="editenddate" name="editenddate" required>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="editfees">Fees:</label>
+                                <input type="number" class="form-control" id="editfees" name="editfees" required>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="editfeespaid">Fees Paid:</label>
+                                <input type="number" class="form-control" id="editfeespaid" name="editfeespaid" required>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="editduration">Duration:</label>
+                                <input type="number" class="form-control" id="editduration" name="editduration" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="edithourstaken">Hours Taken:</label>
+                                <input type="number" class="form-control" id="edithourstaken" name="edithourstaken" required>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="editstatus">Status:</label>
+                                <select id="editstatus" class="form-control" name="editstatus" required>
+                                    <option value="Not Started" selected>Not Started</option>
+                                    <option value="Ongoing">Ongoing</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="editdetails">Details:</label>
+                                <input type="text" id="editdetails" class="form-control" name="editdetails" oninput="checkLength()" required>
+                            </div>
+
+
+
+                            <div class="form-group">
+                                <label for="editremarks" class="col-form-label">Remarks:</label>
+                                <input type="text" class="form-control" id="editremarks" oninput="checkLength()" required>
+
+                                <button type="submit" id="editsubmit" class="hide" style="display:none"></button>
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary cl" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary editsaveButton" onclick="UpdateBatch()">Save Changes</button>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- end edit modal -->
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title"> Batches</h4>
+                    <div id="batch-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

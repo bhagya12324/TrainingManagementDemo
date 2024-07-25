@@ -1,0 +1,147 @@
+﻿  <script src="~/js/tm/BatchDetails.js?rndstr=<%= getRandomStr() %>"></script>
+ 
+     <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <!--Top Form-->
+            <div class="card card-chart">
+              <div class="card-header ">
+                <div class="row">
+                  <div class="col-sm-6 text-left">
+                    <h4 class="card-title">Enter Batch Details <button type="button"  class="btn btn-primary btn-sm" data-toggle="modal" data-target="#dailyTaskModal">Add Details</button></h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--Datagrid View-->
+           <div class="col-md-12">
+            <div class="card ">
+              <div class="card-header">
+                <h4 class="card-title"> Batch Details</h4>
+              </div>
+              <div class="card-body">
+                <div class="batchDetailsGrid "></div>
+              </div>
+            </div>
+          </div>
+                <!--Begining of Form-->
+                <div class="card card-chart">
+                  <div class="modal fade" id="dailyTaskModal" tabindex="-1" role="dialog" aria-labelledby="dailyTaskModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="dailyTaskModalLabel">Daily Task Entry Form</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="form-group">
+                              <!-- Batches Dropdown-->
+                                <input type="text" style="display:none" class="form-control" id="batchId">
+
+                              <div class="form-group">
+                                    <label  class="col-form-label">Batch Name:</label>
+                                <div class="dropdown">
+                                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Select an item
+                                  </button>
+                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="batchesDropdown-menu">
+                                  </div>
+                                </div>
+                                <span  style="display:hidden" class="col-md-6 "></span>
+                                <!--Required Field-->
+                                <span id="requiredBatchId" style="display: none; color: red;">* Required</span>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="date">Date</label>
+                              <input type="date" class="form-control" id="date">
+                            </div>
+                            <div class="form-group">
+                              <label for="hourstaken">Hours Taken</label>
+                              <input type="number" class="form-control" id="hourstaken" placeholder="Enter Hours Taken">
+                            </div>
+                            <div class="form-group">
+                              <label for="topics">Topics Taken</label>
+                              <input type="text" class="form-control" id="topics" placeholder="Enter Topics Taken">
+                            </div>
+                            <div class="form-group">
+                              <label for="remarks">Remarks</label>
+                              <textarea class="form-control" id="remarks" rows="2"></textarea>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary cl" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary saveButton">Save Details</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             <!--End of Form-->
+             <!--Beginning of Edit Form-->
+                <div class="card card-chart">
+                  <div class="modal fade" id="editdailyTaskModal" tabindex="-1" role="dialog" aria-labelledby="editdailyTaskModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="dailyTaskModalLabel">Daily Task Entry Edit Form</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="form-group">
+                              <!-- Batches Dropdown-->
+                                <input type="text" style="display:none" class="form-control" id="batchdetailId">
+                                <input type="text" style="display:none" class="form-control" id="editbatchId">
+
+                              <div class="form-group">
+                                    <label  class="col-form-label">Batch Name:</label>
+                                <div class="dropdown">
+                                  <button class="btn btn-secondary dropdown-toggle" type="button" id="batchesDropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Select an item
+                                  </button>
+                                  <div class="dropdown-menu" aria-labelledby="batchesDropdownMenuButton" id="editbatchesDropdown-menu">
+                                  </div>
+                                </div>
+                                <span  style="display:hidden" class="col-md-6 "></span>
+                                <!--Required Field-->
+                                <span id="requiredBatchId" style="display: none; color: red;">* Required</span>
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="date">Date</label>
+                              <input type="date" class="form-control" id="editdate">
+                            </div>
+                            <div class="form-group">
+                              <label for="hourstaken">Hours Taken</label>
+                              <input type="number" class="form-control" id="edithourstaken" placeholder="Enter Hours Taken">
+                            </div>
+                            <div class="form-group">
+                              <label for="topics">Topics Taken</label>
+                              <input type="text" class="form-control" id="edittopics" placeholder="Enter Topics Taken">
+                            </div>
+                            <div class="form-group">
+                              <label for="remarks">Remarks</label>
+                              <textarea class="form-control" id="editremarks" rows="2"></textarea>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary cl" data-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-primary editsaveButton">Save Details</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             <!--End-->
+          </div>
+           
+        </div>
+      </div>

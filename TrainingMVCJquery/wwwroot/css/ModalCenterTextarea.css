@@ -1,0 +1,17 @@
+﻿.modal-dialog {
+    top: -25%;
+
+}
+
+
+#question {
+    border: 1px solid grey;
+    border-radius: 10px;
+}
+
+#editquestion {
+    border: 1px solid grey;
+    border-radius: 10px;
+}
+
+

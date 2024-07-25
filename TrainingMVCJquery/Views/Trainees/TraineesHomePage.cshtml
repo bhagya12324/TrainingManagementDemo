@@ -1,0 +1,233 @@
+﻿<link href="~/css/datagrid.css" rel="stylesheet" />
+<script src="~/js/tm/Traineesjs.js?rndstr=<%= getRandomStr() %>"></script>
+<link href="~/css/Textallign.css" rel="stylesheet" />
+<style>
+    label {
+        display: block;
+    }
+
+    #requiredLabel, #requiredBatchId {
+        display: none;
+    }
+    .modal-dialog {
+  top: 0;
+}
+
+.modal {
+  z-index: 2000;
+}
+
+</style>
+<!-- End Navbar -->
+<div class="content">
+    <!--New Row-->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <!-- Modal -->
+                <div class="modal fade" id="addTraineeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="modal-title" id="exampleModalLongTitle">Add Trainee</h3>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="addTraineeForm">
+                                    <div class="modal-body">
+
+                                        <!-- Batches Dropdown-->
+                                        <div class="form-group">
+                                            <input type="text" style="display:none" class="form-control" id="BatchId">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-md-4 col-form-label">Batch Name:</label>
+                                                <div class="dropdown col-md-4">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Select an item
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="batchesDropdown-menu">
+                                                    </div>
+                                                </div>
+                                                <span style="display:hidden" class="col-md-6 "></span>
+                                            </div>
+                                            <!--Required Field-->
+                                            <span id="requiredBatchId" style="display: none; color: red;">* Required</span>
+                                        </div>
+                                        <!-- Colleges Dropdown-->
+                                        <div class="form-group">
+                                            <label for="collegeId" style="display:none" class="col-form-label">College ID:</label>
+                                            <input type="text" style="display:none" class="form-control" id="collegeId">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-md-4 col-form-label">College Name:</label>
+                                                <div class="dropdown col-md-4">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Select an item
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="collegeDropdown-menu">
+                                                    </div>
+                                                </div>
+                                                <span style="display:hidden" class="col-md-6 "></span>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="traineeName" class="col-form-label">Trainee Name:</label>
+                                            <input type="text" class="form-control required" id="traineeName" required>
+                                            <!--Required Field-->
+                                            <span id="requiredLabel" style="display: none; color: red;">*Trainee Name Required</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="location" class="col-form-label">Location:</label>
+                                            <input type="text" class="form-control" id="location" required>
+                                            <!--Required Field-->
+                                            <span id="locationlabel" style="display:none; color: red;">* Required</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email" class="col-form-label">Email:</label>
+                                            <input type="email" class="form-control" id="email" required>
+                                            <!--Required Field-->
+                                            <span id="emaillabel" style="display: none; color: red;">* Required</span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="phone" class="col-form-label">Phone:</label>
+                                            <input type="tel" class="form-control" id="phone" required>
+                                            <!--Required Field-->
+                                            <span id="phonelabel" style="display: none; color: red;">* Required</span>
+                                        </div>
+                                    </div>
+                                    <button type="submit" style="display:none" id="submitButton"></button>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn cl btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" id="addButton">Add Trainee</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Edit popup-->
+                <div class="card-header">
+                    <!-- Bootstrap Modal Sheet -->
+                    <div class="card">
+                        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="editModalLabel">Edit Record</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- form fields go here -->
+
+
+                                        <div class="form-group">
+                                            <input type="text" style="display:none" class="form-control" id="EditBatchId">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-md-4 col-form-label">Batch Name:</label>
+                                                <div class="dropdown col-md-4">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="EditdropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Select an item
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1" id="editbatchesDropdown-menu">
+                                                    </div>
+                                                </div>
+                                                <span style="display:hidden" class="col-md-6 "></span>
+                                            </div>
+                                            <!--Required Field-->
+                                            <span id="requiredBatchId" style="display: none; color: red;">* Required</span>
+                                        </div>
+                                        <!-- Colleges Dropdown-->
+                                        <div class="form-group">
+                                            <label for="collegeId" style="display:none" class="col-form-label">College ID:</label>
+                                            <input type="text" style="display:none" class="form-control" id="editcollegeId">
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-md-4 col-form-label">College Name:</label>
+                                                <div class="dropdown col-md-4">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="EditdropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        Select an item
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="editcollegeDropdown-menu">
+                                                    </div>
+                                                </div>
+                                                <span style="display:hidden" class="col-md-6 "></span>
+                                            </div>
+                                            <div class="form-group">
+                                                <!--Trainee id Hidden-->
+                                                <input type="text" id="editTraineeId" style="display:none;" />
+                                                <label for="EdittraineeName" class="col-form-label">Trainee Name:</label>
+                                                <input type="text" class="form-control required" id="EdittraineeName" required>
+                                                <!--Required Field-->
+                                                <span id="requiredLabel" style="display: none; color: red;">*Trainee Name Required</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Editlocation" class="col-form-label">Location:</label>
+                                                <input type="text" class="form-control" id="Editlocation" required>
+                                                <!--Required Field-->
+                                                <span id="locationlabel" style="display:none; color: red;">* Required</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Editemail" class="col-form-label">Email:</label>
+                                                <input type="email" class="form-control" id="Editemail" required>
+                                                <!--Required Field-->
+                                                <span id="emaillabel" style="display: none; color: red;">* Required</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="Editphone" class="col-form-label">Phone:</label>
+                                                <input type="tel" class="form-control" id="Editphone" required>
+                                                <!--Required Field-->
+                                                <span id="phonelabel" style="display: none; color: red;">* Required</span>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary cl" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary editTraineeButton">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Close-->
+                        <h5 class="title">Trainees  <button type="button" id="swalCheck" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addTraineeModal">Add</button></h5>
+                    </div>
+
+                    <!-- Search form -->
+                    <div class="col-md-12" style="display: flex;">
+                        <input class="form-control col-md-3 input-sm" type="text" id="searchBox" placeholder="Search" aria-label="Search">
+                        @*<button style="float:right;" type="button" id="searchButton" class="btn btn-primary btn-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                            </svg>
+                        </button>*@
+                    </div>
+                    <br>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card ">
+                    <div class="card-header">
+                        <h4 class="card-title"> Trainees</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="dataGridContainer "></div>
+                    </div>
+                </div>
+            </div>
+            <div id="evalModalContainer"></div>
+        </div>
+    </div>
+</div>

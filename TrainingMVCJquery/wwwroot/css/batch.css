@@ -1,0 +1,54 @@
+﻿
+form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    margin: 0 auto;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+select,
+input[type="date"] {
+    padding: 8px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+
+
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+
+@media screen and (max-width: 400px) {
+    .registration-form {
+        max-width: 100%;
+        padding: 10px;
+    }
+}
+

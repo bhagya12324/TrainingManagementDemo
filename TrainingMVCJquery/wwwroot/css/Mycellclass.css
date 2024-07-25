@@ -1,0 +1,28 @@
+﻿.my-cell-class {
+    padding: 1000px;
+}
+
+
+.devgrid-padding {
+    padding: 10px;
+    margin: 3px;
+}
+.header-padding{
+    padding:5px;
+    margin: 3px;
+}
+@media(max-width: 767px){
+    .header-padding{
+        padding:2px;
+    }
+    .devgrid-padding{
+        padding:4px;
+    }
+}
+.dataGridContainerB{
+    color:white;
+}
+.dx-header-row > td[role="columnheader"] > div.dx-datagrid-text-content {
+    font-size: 14px;
+    font-weight: bold;
+}
